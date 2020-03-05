@@ -1,5 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+
 import './App.css';
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
         >
           Learn React
         </a>
+        <Fab color="secondary" aria-label="edit">
+            <EditIcon />
+        </Fab>
       </header>
     </div>
   );
