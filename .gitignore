@@ -30,6 +30,7 @@ build/
 
 ### VS Code ###
 .vscode/
+*.pem
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # gitignore for react
