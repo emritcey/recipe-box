@@ -30,7 +30,7 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <p>Hello World</p>
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Edit <code>src/App.js</code> and save to reload Purple Squirrels.
           </p>
           <a
             className="App-link"
@@ -38,7 +38,7 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            Learn React Purple Squirrels.
           </a>
           <Fab color="secondary" aria-label="edit">
               <EditIcon />
