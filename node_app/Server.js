@@ -10,7 +10,7 @@ const express = require('express');
 const app = express();
 
 // Declaring the Port variable
-const PORT = 8081;
+const PORT = 80;
 app.use(bodyParser.json());
 
 // Check ./Middleware/HelloWorld.js to see what is happening with "req.locals.phrase"
