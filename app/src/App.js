@@ -1,56 +1,44 @@
-import React, { useState }from 'react';
-import logo from './logo.svg';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Home from './Components/Home';
+import TestPage from './Components/TestPage';
 import './App.css';
 
 function App() {
-  const [isLoading, setLoading] = useState(false);
-  const [greeting, setGreeting] = useState('');
-  const sayHello = async (event) => {
-    event.preventDefault();
-    let response = await fetch('/greeting?name=' + greeting);
-    let body = await response.json();
-    setGreeting(body.name);
-    setLoading(false);
-  }
+  return (
+    <Router>
+      <div>
+        <h1>Purple Squirrels</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/testpage">Test Page</Link>
+            </li>
+          </ul>
+        </nav>
 
-  const updateName = event => {
-    event.preventDefault();
-    setGreeting(event.target.value);
-    setLoading(false);
-  }
-    if (isLoading) {
-      return;
-    }
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Hello World</p>
-          <p>
-            Edit <code>src/App.js</code> and save to reload Purple Squirrels.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React Purple Squirrels.
-          </a>
-          <Fab color="secondary" aria-label="edit">
-              <EditIcon />
-          </Fab>
-          <div className="App-intro">
-              <input onChange={(event)=>updateName(event)} placeholder="Enter Your Name"></input>
-              <button onClick={(event)=>sayHello(event)}>Please Click Me!</button>
-              <h2>Hello {greeting}</h2>
-          </div>
-        </header>
+        {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/testpage">
+            <TestPage />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
+    </Router>
     );
-}
+};
+
 
 export default App;
