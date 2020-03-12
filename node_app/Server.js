@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 // Import Middleware Functions
 const FetchOneUserMiddleware = require("./Middleware/FetchOneUser");
 const AddRecipeMiddleware = require("./Middleware/AddRecipe");
+const DeleteRecipeMiddleware = require("./Middleware/DeleteRecipe");
 //const UpdateRecipeMiddleware = require('./Middleware/UpdateRecipe');
 
 // Instantiate express and App Object
@@ -18,6 +19,10 @@ app.get("/retrieve-user", FetchOneUserMiddleware, (req, res) => {
     res.send(res.locals.data);
 });
 app.post("/make-recipe", AddRecipeMiddleware, (req, res) => {
+    res.send();
+});
+
+app.delete("/remove-recipe", DeleteRecipeMiddleware, (req,res) => {
     res.send();
 });
 
