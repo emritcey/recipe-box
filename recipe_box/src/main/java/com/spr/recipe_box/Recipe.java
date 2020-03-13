@@ -7,16 +7,24 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recipe {
     private String title;
-    private String cuisine;
+    private String recipe_id;
     private String description;
     List <Ingredient> ingredientList = new ArrayList<>();
     private String instructions;
 
-    public Recipe(String title, String cuisine, String description, String instructions) {
+    public Recipe(String title, String recipe_id, String description, String instructions) {
         this.title = title;
-        this.cuisine = cuisine;
+        this.recipe_id = recipe_id;
         this.description = description;
         this.instructions = instructions;
+    }
+
+    public String getRecipeId() {
+        return recipe_id;
+    }
+
+    public void setRecipeId(String recipe_id) {
+        this.recipe_id = recipe_id;
     }
 
     public String getTitle() {
@@ -25,10 +33,6 @@ public class Recipe {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCuisine() {
-        return cuisine;
     }
 
     public String getDescription() {
@@ -50,7 +54,6 @@ public class Recipe {
     @Override
     public String toString(){
         String recipeInfo = "Recipe: " + title + "\n" +
-                "Cuisine: "+ cuisine + "\n" +
                 "Description: " + description + "\n" +
                 "Instructions: " + instructions;
         String ingredientThings = ingredientList.toString();

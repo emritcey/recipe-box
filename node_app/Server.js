@@ -2,10 +2,13 @@ const bodyParser = require("body-parser");
 
 // Import Middleware Functions
 const FetchUserMiddleware = require("./Middleware/FetchUser");
-const AddUserMiddleware = require("./Middleware/AddUser");
-const AddRecipeMiddleware = require("./Middleware/AddRecipe");
-const DeleteRecipeMiddleware = require("./Middleware/DeleteRecipe");
-//const UpdateRecipeMiddleware = require('./Middleware/UpdateRecipe');
+const AddUserMiddleware = require("./Middleware/Users/AddUser");
+
+const GetRecipeById = require("./Middleware/Recipes/GetRecipeById");
+const GetAllRecipes = require("./Middleware/Recipes/GetAllRecipes");
+const CreateRecipe = require("./Middleware/Recipes/CreateRecipe");
+const UpdateRecipe = require('./Middleware/Recipes/UpdateRecipe');
+const DeleteRecipe = require("./Middleware/Recipes/DeleteRecipe");
 
 // Instantiate express and App Object
 const express = require('express');
@@ -26,7 +29,7 @@ app.get("/user", FetchUserMiddleware, (req, res) => {
             nodeStatus: 404,
             error: res.locals.error
         });
-    };
+    }
 });
 
 app.post("/user", AddUserMiddleware, (req, res) => {
@@ -37,20 +40,28 @@ app.post("/user", AddUserMiddleware, (req, res) => {
             nodeStatus: 400,
             error: res.locals.error
         });
-    };
+    }
 });
 
-app.post("/make-recipe", AddRecipeMiddleware, (req, res) => {
-    res.send();
+app.get("/recipes", GetAllRecipes, (req, res) => {
+    res.send(res.locals.data);
 });
 
-app.delete("/remove-recipe", DeleteRecipeMiddleware, (req,res) => {
-    res.send();
+app.get("/recipes/:id", GetRecipeById, (req, res) => {
+    res.send(res.locals.data);
 });
 
-// app.put("/update-recipe", UpdateRecipeMiddleware, (req,res) => {
-//     res.send(res.locals.data);
-// })
+app.post("/recipes", CreateRecipe, (req, res) => {
+    res.send(res.locals.success);
+});
+
+app.put("/recipes/:id", UpdateRecipe, (req, res) => {
+    res.send(res.locals.success);
+});
+
+app.delete("/recipes/:id", DeleteRecipe, (req,res) => {
+    res.send(true);
+})
 
 app.use("*", (req, res) => {
     res.status(404).send("Node.js -> No Routes Matched");

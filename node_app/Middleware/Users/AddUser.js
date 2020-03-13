@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const keys = require("../Keys");
+const keys = require("../../Keys");
 const fs = require('fs');
 const log_file = fs.createWriteStream(__dirname + '/add_user_debug.log', { flags: 'w' });
 const log_stdout = process.stdout;
