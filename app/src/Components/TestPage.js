@@ -13,6 +13,9 @@ function TestPage() {
           <li>
             <Link to="/testpage">Test Page</Link>
           </li>
+          <li>
+            <Link to="/recipepage">Recipe Page</Link>
+          </li>
         </ul>
       </nav>
       <h1>Test Page</h1>
