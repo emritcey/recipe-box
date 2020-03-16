@@ -1,8 +1,22 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 function TestPage() {
   return (
-    <h1>Test Page</h1>
+    <div>
+      <h1>Purple Squirrels</h1>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/testpage">Test Page</Link>
+          </li>
+        </ul>
+      </nav>
+      <h1>Test Page</h1>
+    </div>
   );
 };
 
