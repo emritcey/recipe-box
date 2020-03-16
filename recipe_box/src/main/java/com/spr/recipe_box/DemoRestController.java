@@ -14,6 +14,7 @@ public class DemoRestController {
 
     @RequestMapping("/retrieve-user")
     public String getUser(@RequestParam(value="user_name") String name) {
+        System.out.println(name);
         String url = "http://13.56.134.63/retrieve-user?user_name=" + name;
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
