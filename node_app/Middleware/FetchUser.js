@@ -2,7 +2,7 @@ const AWS = require("aws-sdk");
 const keys = require("../Keys");
 
 const fs = require('fs');
-const log_file = fs.createWriteStream(__dirname + '/fetch_one_user_debug.log', { flags: 'w' });
+const log_file = fs.createWriteStream(__dirname + '/fetch_user_debug.log', { flags: 'w' });
 const log_stdout = process.stdout;
 
 AWS.config.update(keys.awsConfig);
