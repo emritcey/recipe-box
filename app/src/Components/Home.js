@@ -36,7 +36,7 @@ function Home() {
 
   const loginApi = async (userNameParam) => {
     try {
-      const fetchResponse = await fetch(`/retrieve-user?user_name=${userNameParam}`);
+      const fetchResponse = await fetch(`/user?user_name=${userNameParam}`);
       const data = await fetchResponse.json();
       if (data.nodeStatus === 200) {
         setRedirectFire(true);

@@ -1,0 +1,9 @@
+{
+  "message": "One or more parameter values were invalid: Missing the key user_name in the item",
+  "code": "ValidationException",
+  "time": "2020-03-20T00:07:30.294Z",
+  "requestId": "O1D2V8C490RCE60JP0OTO10RTNVV4KQNSO5AEMVJF66Q9ASUAAJG",
+  "statusCode": 400,
+  "retryable": false,
+  "retryDelay": 36.41026811236434
+}
