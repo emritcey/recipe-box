@@ -1,6 +1,7 @@
 package com.spr.recipe_box;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
@@ -15,10 +16,17 @@ public class DemoRestController {
 
     @RequestMapping("/retrieve-user")
     public String getUser(@RequestParam(value="user_name") String name) {
-        System.out.println(name);
-        String url = "http://13.56.134.63/retrieve-user?user_name=" + name;
+        //  Uncommon to the URL that you want: -> Either Dev or Production
+
+        //  URL for production Environment: -> Node instance
+        //  String url = "http://13.56.134.63/retrieve-user?user_name=" + name;
+
+        //  URL for Dev Environment: -> Localhost
+        String url = "http://127.0.0.1/retrieve-user?user_name=" + name;
+
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return response.getBody();
     }
 
     @Autowired

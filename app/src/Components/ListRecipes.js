@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function ListRecipes(){
     const [recipes, setRecipes] = useState([]);
-    const[load, setLoad] = useState(false);
-    const[error, setError] = useState('');
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get('http://localhost:8080/recipes/5')
@@ -23,16 +23,16 @@ function ListRecipes(){
         return (
             <div>
                 {
-                    error ? <p>{error.message}</p> : 
-                        
-                    recipes.map((recipe, index) => 
+                    error ? <p>{error.message}</p> :
+
+                    recipes.map((recipe, index) =>
                         <ul>
                             <li key={index}>{recipe.title}</li>
                             <li key={index}>{recipe.cuisine}</li>
                             <li key={index}>{recipe.description}</li>
                             <li>INGREDIENTS
                                 <ul>
-                                    {recipe.ingredientList.map((item,idx) => 
+                                    {recipe.ingredientList.map((item,idx) =>
                                         <li key={idx}>{item.quantity} {item.name}</li>
                                     )}
                                 </ul>

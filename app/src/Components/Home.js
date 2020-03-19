@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -28,18 +29,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Home() {
-  const [userName, setUserName] = useState(0);
   const classes = useStyles();
+
+  const [userName, setUserName] = useState(0);
+  const [redirectFire, setRedirectFire] = useState(0);
 
   const loginApi = async (userNameParam) => {
     try {
-      const fetchResponse = await fetch(`/retrieve-user?user_name=${userName}`);
+      const fetchResponse = await fetch(`/retrieve-user?user_name=${userNameParam}`);
       const data = await fetchResponse.json();
-      window.location = `/testpage`;
-      return data;
+      if (data.nodeStatus === 200) {
+        setRedirectFire(true);
+      } else if (data.nodeStatus === 401) {
+        window.alert("You need to create an account Brah. Create an account or go to another site, Tanks :)");
+      } else if (data.nodeStatus === 404) {
+        window.alert("Something is busted on the server try again never :)");
+      }
+      return;
     } catch (err) {
       return err;
     };
+  };
+
+  if (redirectFire) {
+    return <Redirect push to="/testpage" />
   };
 
   return (

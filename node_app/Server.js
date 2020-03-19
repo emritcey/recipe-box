@@ -16,8 +16,18 @@ app.use(bodyParser.json());
 
 // Check ./Middleware/HelloWorld.js to see what is happening with "req.locals.phrase"
 app.get("/retrieve-user", FetchOneUserMiddleware, (req, res) => {
-    res.send(res.locals.data);
+    if (res.locals.validUser) {
+        return res.send({nodeStatus: 200});
+    } else if (res.locals.nonValidUser) {
+        return res.send({ nodeStatus: 401 });
+    } else if (res.locals.error) {
+        return res.send({
+            nodeStatus: 404,
+            error: res.locals.error
+        });
+    };
 });
+
 app.post("/make-recipe", AddRecipeMiddleware, (req, res) => {
     res.send();
 });
