@@ -7,6 +7,7 @@ import {
 import Home from './Components/Home';
 import TestPage from './Components/TestPage';
 import RecipePage from './Components/RecipePage';
+import SignUp from './Components/SignUp';
 import './App.css';
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/testpage">
             <TestPage />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
           </Route>
           <Route path="/">
             <Home />
