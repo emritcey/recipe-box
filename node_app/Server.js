@@ -1,7 +1,8 @@
 const bodyParser = require("body-parser");
 
 // Import Middleware Functions
-const FetchOneUserMiddleware = require("./Middleware/FetchOneUser");
+const FetchUserMiddleware = require("./Middleware/FetchUser");
+const AddUserMiddleware = require("./Middleware/AddUser");
 const AddRecipeMiddleware = require("./Middleware/AddRecipe");
 const DeleteRecipeMiddleware = require("./Middleware/DeleteRecipe");
 //const UpdateRecipeMiddleware = require('./Middleware/UpdateRecipe');
@@ -15,7 +16,7 @@ const PORT = 80;
 app.use(bodyParser.json());
 
 // Check ./Middleware/HelloWorld.js to see what is happening with "req.locals.phrase"
-app.get("/retrieve-user", FetchOneUserMiddleware, (req, res) => {
+app.get("/user/fetch", FetchUserMiddleware, (req, res) => {
     if (res.locals.validUser) {
         return res.send({nodeStatus: 200});
     } else if (res.locals.nonValidUser) {
@@ -23,6 +24,17 @@ app.get("/retrieve-user", FetchOneUserMiddleware, (req, res) => {
     } else if (res.locals.error) {
         return res.send({
             nodeStatus: 404,
+            error: res.locals.error
+        });
+    };
+});
+
+app.get("/user/add", AddUserMiddleware, (req, res) => {
+    if (res.locals.addedUser) {
+        return res.send({ nodeStatus: 200 });
+    } else if (res.locals.error) {
+        return res.send({
+            nodeStatus: 400,
             error: res.locals.error
         });
     };
