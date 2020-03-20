@@ -16,7 +16,7 @@ public class UserRestController {
 
     @GetMapping
     public String getUser(@RequestParam(value="user_name") String name) {
-        String url = env.equals("DEV") ? "http://127.0.0.1/user/fetch?user_name=" + name : "http://13.56.134.63/user/fetch?user_name=" + name;
+        String url = env.equals("DEV") ? "http://127.0.0.1/user?user_name=" + name : "http://13.56.134.63/user?user_name=" + name;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return response.getBody();
@@ -24,7 +24,7 @@ public class UserRestController {
 
     @PostMapping
     public String addUser(@RequestBody String userName) throws JsonProcessingException {
-        String url = env.equals("DEV") ? "http://127.0.0.1/user/add" : "http://13.56.134.63/user/add";
+        String url = env.equals("DEV") ? "http://127.0.0.1/user" : "http://13.56.134.63/user";
         HashMap request = new ObjectMapper().readValue(userName, HashMap.class);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);

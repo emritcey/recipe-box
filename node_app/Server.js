@@ -16,7 +16,7 @@ const PORT = 80;
 app.use(bodyParser.json());
 
 // Check ./Middleware/HelloWorld.js to see what is happening with "req.locals.phrase"
-app.get("/user/fetch", FetchUserMiddleware, (req, res) => {
+app.get("/user", FetchUserMiddleware, (req, res) => {
     if (res.locals.validUser) {
         return res.send({nodeStatus: 200});
     } else if (res.locals.nonValidUser) {
@@ -29,7 +29,7 @@ app.get("/user/fetch", FetchUserMiddleware, (req, res) => {
     };
 });
 
-app.post("/user/add", AddUserMiddleware, (req, res) => {
+app.post("/user", AddUserMiddleware, (req, res) => {
     if (res.locals.addedUser) {
         return res.send({ nodeStatus: 200 });
     } else if (res.locals.error) {
