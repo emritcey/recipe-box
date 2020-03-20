@@ -29,7 +29,7 @@ app.get("/user/fetch", FetchUserMiddleware, (req, res) => {
     };
 });
 
-app.get("/user/add", AddUserMiddleware, (req, res) => {
+app.post("/user/add", AddUserMiddleware, (req, res) => {
     if (res.locals.addedUser) {
         return res.send({ nodeStatus: 200 });
     } else if (res.locals.error) {
@@ -53,7 +53,7 @@ app.delete("/remove-recipe", DeleteRecipeMiddleware, (req,res) => {
 // })
 
 app.use("*", (req, res) => {
-    res.status(404).send("No Routes Matched");
+    res.status(404).send("Node.js -> No Routes Matched");
 });
 
 // Invoke the express app to listen on the provided Port number
