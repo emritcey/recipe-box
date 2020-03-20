@@ -45,11 +45,41 @@ function SignUp(){
         if(userName !== ''){
             setErrorMsg('');
             alert(`Submitting name ${userName}`)
-            setRedirectFire(true);
+            signUpAPI(userName);
         }
         else{
             setErrorMsg('Cannot leave user name blank');
         }
+    };
+
+    const signUpAPI = async (userNameParam) => {
+        const data = {
+            userName:userNameParam
+        };
+
+        const settings = {
+            method:'POST',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        }
+
+        try{
+            const fetchResponse = await fetch(`/user`, settings);
+            const data = await fetchResponse.json();
+            if(data.nodeStatus === 200){
+                setRedirectFire(true);
+            }else if(data.nodeStatus === 400){
+                alert(`Unable to add account for ${userNameParam}`)
+            }else{
+                alert(`Unknown error...this site is broken:(`)
+            }
+            return;
+        }catch(err){
+            return err;
+        };
     };
 
     if(redirectFire){

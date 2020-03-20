@@ -10,7 +10,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = (req, res, next) => {
   const input = {
-    user_name: req.body.user_name
+    user_name: req.body.userName
   };
   const params = {
     TableName: "Recipe_Users",
