@@ -5,7 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Home from './Components/Home';
-import TestPage from './Components/TestPage';
+import LandingPage from './Components/LandingPage';
 import RecipePage from './Components/RecipePage';
 import SignUp from './Components/SignUp';
 import './App.css';
@@ -20,8 +20,8 @@ function App() {
           <Route path="/recipepage">
             <RecipePage />
           </Route>
-          <Route path="/testpage">
-            <TestPage />
+          <Route path="/landingpage">
+            <LandingPage />
           </Route>
           <Route path="/signup">
             <SignUp />
