@@ -4,10 +4,9 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Home from './Components/Home';
-import LandingPage from './Components/LandingPage';
-import RecipePage from './Components/RecipePage';
-import SignUp from './Components/SignUp';
+import LoginPage from './Pages/Login/LoginPage';
+import DashboardPage from './Pages/Dashboard/DashboardPage';
+import RecipePage from './Pages/Recipes/RecipePage';
 import './App.css';
 
 function App() {
@@ -17,17 +16,14 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/recipepage">
+          <Route path="/recipe">
             <RecipePage />
           </Route>
-          <Route path="/landingpage">
-            <LandingPage />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
+          <Route path="/dashboard">
+            <DashboardPage />
           </Route>
           <Route path="/">
-            <Home />
+            <LoginPage />
           </Route>
         </Switch>
       </div>

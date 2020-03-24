@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LandingPageCard from './LandingPageCard';
+import DashboardCardComponent from './Components/DashboardCardComponent';
 
 // Use this Array to build out custom Properties for each card.
 const cardPropsArray = [{
@@ -23,18 +23,18 @@ const cardPropsArray = [{
     redirect: "./"
   }];
 
-export default function LandingPage() {
+export default function DashboardPage() {
   return (
     <div>
       <h1>Purple Squirrels</h1>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Login</Link>
           </li>
         </ul>
         <div>
-          {cardPropsArray.map(mapElement => <LandingPageCard element={mapElement} />)}
+          {cardPropsArray.map(mapElement => <DashboardCardComponent element={mapElement} />)}
         </div>
       </nav>
     </div>
