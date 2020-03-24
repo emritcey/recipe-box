@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/recipes", produces = "application/json")
 
 public class RecipeDBController {
