@@ -16,13 +16,12 @@ import java.util.List;
 public class RecipeService {
     private static List<Recipe> recipeList = new ArrayList<>();
 
-    public List<Recipe> findAll(String recipe_id){
+    public List<Recipe> findById(String recipe_id){
             String url  = "https://api.bigoven.com/recipe/"+recipe_id+"?api_key=glFUKikehWjLW900etpS564VgIzOWSW5";
 
             RestTemplate restTemplate = new RestTemplate();
 
             HttpHeaders headers = new HttpHeaders();
-
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
@@ -38,7 +37,7 @@ public class RecipeService {
 
             // check response
             if (response.getStatusCode() == HttpStatus.OK) {
-                System.out.println("Request Successful.");
+                System.out.println("Request Successful");
             } else {
                 System.out.println("Request Failed");
                 System.out.println(response.getStatusCode());
@@ -46,10 +45,10 @@ public class RecipeService {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            try{
-                if(!response.hasBody()) {
+            try {
+                if (!response.hasBody()) {
                     System.out.println("Nothing exists in response body");
-                }else{
+                } else {
                     JsonNode map = mapper.readTree(response.getBody());
 
                     Recipe myRecipe = new Recipe(map.path("Title").asText(),
@@ -58,9 +57,9 @@ public class RecipeService {
                             map.path("Instructions").asText());
 
                     JsonNode ingredientsNode = map.path("Ingredients");
-                    if(ingredientsNode.isArray()){
+                    if (ingredientsNode.isArray()){
                         List<Ingredient> recipeIngredientList = new ArrayList<>();
-                        for(JsonNode node:ingredientsNode){
+                        for (JsonNode node:ingredientsNode) {
                             Ingredient nextIngredient = new Ingredient();
                             nextIngredient.setName(node.path("Name").asText());
                             nextIngredient.setQuantity(node.path("Quantity").asText() + " " + node.path("Unit").asText());
@@ -71,7 +70,7 @@ public class RecipeService {
                     recipeList.add(myRecipe);
                 }
             }
-            catch(IOException ioe){
+            catch (IOException ioe) {
                 ioe.printStackTrace();
             }
         return recipeList;
