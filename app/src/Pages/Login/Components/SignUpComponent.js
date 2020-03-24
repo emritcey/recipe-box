@@ -10,30 +10,18 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
-
+import globalFormStyles from '../../../GlobalFormStyles';
 
 const useStyles = makeStyles(theme => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     avatar: {
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
+    }
   }));
 
 export default function SignUpComponent(props){
     const classes = useStyles();
+    const formClasses = globalFormStyles();
 
     const [userName, setUserName] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -89,14 +77,14 @@ export default function SignUpComponent(props){
     return(
         <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
+        <div className={formClasses.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <form className={formClasses.form} noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -117,7 +105,7 @@ export default function SignUpComponent(props){
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className={formClasses.submit}
             >
               Sign Up
             </Button>
