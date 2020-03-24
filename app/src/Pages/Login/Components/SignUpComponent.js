@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function SignUp(){
+export default function SignUpComponent(){
     const classes = useStyles();
 
     const [userName, setUserName] = useState('');
@@ -83,7 +83,7 @@ function SignUp(){
     };
 
     if(redirectFire){
-        return <Redirect push to="/testpage" />
+        return <Redirect push to="/dashboard" />
     };
 
     return(
@@ -132,6 +132,4 @@ function SignUp(){
         </div>
       </Container>
     );
-}
-
-export default SignUp;
+};

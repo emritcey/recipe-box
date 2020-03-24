@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Home() {
+export default function LoginPage() {
   const classes = useStyles();
 
   const [userName, setUserName] = useState(0);
@@ -52,7 +52,7 @@ function Home() {
   };
 
   if (redirectFire) {
-    return <Redirect push to="/landingpage" />
+    return <Redirect push to="/dashboard" />
   };
 
   return (
@@ -109,5 +109,3 @@ function Home() {
     </Container>
   );
 };
-
-export default Home;

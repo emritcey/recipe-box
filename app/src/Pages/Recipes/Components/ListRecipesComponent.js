@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function ListRecipes(){
+function ListRecipesComponent(){
     const [recipes, setRecipes] = useState([]);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
@@ -54,4 +54,4 @@ function ListRecipes(){
     }
 };
 
-export default ListRecipes;
+export default ListRecipesComponent;
