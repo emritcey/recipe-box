@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default function SignUpComponent(){
+export default function SignUpComponent(props){
     const classes = useStyles();
 
     const [userName, setUserName] = useState('');
@@ -123,7 +123,11 @@ export default function SignUpComponent(){
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="./" variant="body2">
+                <Link variant="body2"
+                  onClick={() => {
+                    props.setDisplaySignUp(false);
+                  }}
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>
