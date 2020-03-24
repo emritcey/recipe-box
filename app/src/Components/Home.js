@@ -52,7 +52,7 @@ function Home() {
   };
 
   if (redirectFire) {
-    return <Redirect push to="/testpage" />
+    return <Redirect push to="/landingpage" />
   };
 
   return (
