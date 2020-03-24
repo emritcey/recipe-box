@@ -30,13 +30,18 @@ export default function DashboardPage() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Login</Link>
+            <Link to="/">Login Page</Link>
           </li>
         </ul>
-        <div>
-          {cardPropsArray.map(mapElement => <DashboardCardComponent element={mapElement} />)}
-        </div>
+        <ul>
+          <li>
+            <Link to="/recipe">Recipe Page</Link>
+          </li>
+        </ul>
       </nav>
+      <div>
+        {cardPropsArray.map(mapElement => <DashboardCardComponent element={mapElement} />)}
+      </div>
     </div>
   );
 };
