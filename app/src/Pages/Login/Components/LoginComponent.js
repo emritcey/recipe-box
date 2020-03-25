@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
 import globalFormStyles from '../../../GlobalFormStyles';
+import AppContext from '../../../context/app-context';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -19,10 +20,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LoginComponent(props) {
+export default () => {
   const classes = useStyles();
   const formClasses = globalFormStyles();
 
+  const context = useContext(AppContext);
   const [userName, setUserName] = useState(0);
   const [redirectFire, setRedirectFire] = useState(0);
 
@@ -92,11 +94,7 @@ export default function LoginComponent(props) {
         </Button>
         <Grid container>
           <Grid item>
-            <Link variant="body2"
-              onClick={() => {
-                props.setDisplaySignUp(true);
-              }}
-            >
+            <Link variant="body2" onClick={ () => context.setDisplaySignUp(true) } >
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

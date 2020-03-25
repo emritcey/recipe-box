@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,118 +10,115 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
+import AppContext from '../../../context/app-context';
 import globalFormStyles from '../../../GlobalFormStyles';
 
 const useStyles = makeStyles(theme => ({
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    }
-  }));
+  avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+  }
+}));
 
-export default function SignUpComponent(props){
-    const classes = useStyles();
-    const formClasses = globalFormStyles();
+export default (props) => {
+  const classes = useStyles();
+  const formClasses = globalFormStyles();
 
-    const [userName, setUserName] = useState('');
-    const [errorMsg, setErrorMsg] = useState('');
-    const [redirectFire, setRedirectFire] = useState(false);
+  const context = useContext(AppContext);
+  const [userName, setUserName] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [redirectFire, setRedirectFire] = useState(false);
 
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      if(userName !== ''){
+          setErrorMsg('');
+          alert(`Submitting name ${userName}`)
+          signUpAPI(userName);
+      }
+      else{
+          setErrorMsg('Cannot leave user name blank');
+      }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(userName !== ''){
-            setErrorMsg('');
-            alert(`Submitting name ${userName}`)
-            signUpAPI(userName);
-        }
-        else{
-            setErrorMsg('Cannot leave user name blank');
-        }
-    };
+  const signUpAPI = async (userNameParam) => {
+      const data = {
+          userName:userNameParam
+      };
 
-    const signUpAPI = async (userNameParam) => {
-        const data = {
-            userName:userNameParam
-        };
+      const settings = {
+          method:'POST',
+          headers:{
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+      }
 
-        const settings = {
-            method:'POST',
-            headers:{
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }
+      try{
+          const fetchResponse = await fetch(`/user`, settings);
+          const data = await fetchResponse.json();
+          if(data.nodeStatus === 200){
+              setRedirectFire(true);
+          }else if(data.nodeStatus === 400){
+              alert(`Unable to add account for ${userNameParam}`)
+          }else{
+              alert(`Unknown error...this site is broken:(`)
+          }
+          return;
+      }catch(err){
+          return err;
+      };
+  };
 
-        try{
-            const fetchResponse = await fetch(`/user`, settings);
-            const data = await fetchResponse.json();
-            if(data.nodeStatus === 200){
-                setRedirectFire(true);
-            }else if(data.nodeStatus === 400){
-                alert(`Unable to add account for ${userNameParam}`)
-            }else{
-                alert(`Unknown error...this site is broken:(`)
-            }
-            return;
-        }catch(err){
-            return err;
-        };
-    };
+  if (redirectFire) {
+    return <Redirect push to="/dashboard" />
+  };
 
-    if(redirectFire){
-        return <Redirect push to="/dashboard" />
-    };
-
-    return(
-        <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={formClasses.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <form className={formClasses.form} noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="user_name"
-                  label="User Name"
-                  name="user_name"
-                  autoComplete="user_name"
-                  helperText = {errorMsg}
-                  onChange={e => setUserName(e.target.value)}
-                />
-              </Grid>
+  return(
+    <Container component="main" maxWidth="xs">
+    <CssBaseline />
+      <div className={formClasses.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <form className={formClasses.form} noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="user_name"
+                label="User Name"
+                name="user_name"
+                autoComplete="user_name"
+                helperText = {errorMsg}
+                onChange={e => setUserName(e.target.value)}
+              />
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={formClasses.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link variant="body2"
-                  onClick={() => {
-                    props.setDisplaySignUp(false);
-                  }}
-                >
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={formClasses.submit}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link variant="body2" onClick={() => context.setDisplaySignUp(false)}>
+                Already have an account? Sign in
+              </Link>
             </Grid>
-          </form>
-        </div>
-      </Container>
-    );
+          </Grid>
+        </form>
+      </div>
+    </Container>
+  );
 };

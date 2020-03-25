@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import LoginComponent from './Components/LoginComponent';
 import SignUpComponent from './Components/SignUpComponent';
+import AppContext from '../../context/app-context';
 
-export default function LoginPage() {
-  const [displaySignUp, setDisplaySignUp] = useState(false);
-
+export default () => {
+  const context = useContext(AppContext);
   return (
     <div className="login-page-container">
-      { displaySignUp ? <SignUpComponent displaySignUp={displaySignUp} setDisplaySignUp={setDisplaySignUp} /> : <LoginComponent displaySignUp={displaySignUp} setDisplaySignUp={setDisplaySignUp} /> }
+      {context.displaySignUp ? <SignUpComponent /> : <LoginComponent />}
       <img alt="Purple Squirrel" />
     </div>
   );
