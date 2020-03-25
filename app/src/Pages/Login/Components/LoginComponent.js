@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme => ({
 export default () => {
   const classes = useStyles();
   const formClasses = globalFormStyles();
-
   const context = useContext(AppContext);
+
   const [userName, setUserName] = useState(0);
   const [redirectFire, setRedirectFire] = useState(0);
 
@@ -88,6 +88,7 @@ export default () => {
           onClick={(e) => {
             loginApi(userName);
             document.getElementById('email').value = '';
+            context.setCurrentUserName(userName.toString());
           }}
         >
           Sign In

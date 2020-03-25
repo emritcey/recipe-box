@@ -38,6 +38,11 @@ export default function DashboardPage() {
             <Link to="/recipe">Recipe Page</Link>
           </li>
         </ul>
+        <ul>
+          <li>
+            <Link to="/recipe/create">Create Recipe</Link>
+          </li>
+        </ul>
       </nav>
       <div>
         {cardPropsArray.map(mapElement => <DashboardCardComponent element={mapElement} />)}

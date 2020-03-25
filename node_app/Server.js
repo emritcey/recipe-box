@@ -52,7 +52,14 @@ app.get("/recipes/:id", GetRecipeById, (req, res) => {
 });
 
 app.post("/recipes", CreateRecipe, (req, res) => {
-    res.send(res.locals.success);
+    if(res.locals.addedRecipe){
+        return res.send({ nodeStatus: 200 });
+    }else if(res.locals.error) {
+        return res.send({
+            nodeStatus:400,
+            error: res.locals.error
+        });
+    }
 });
 
 app.put("/recipes/:id", UpdateRecipe, (req, res) => {

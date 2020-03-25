@@ -28,7 +28,7 @@ public class RecipeDBRestController extends RestClass {
     }
 
     @PostMapping
-    public String create(@RequestBody HashMap<String, String> recipe) {
+    public String create(@RequestBody HashMap<String, Object> recipe) {
         String url = env.equals("DEV") ? "http://127.0.0.1/recipes" : "http://13.56.134.63/recipes";
         ResponseEntity<String> response = restTemplate.postForEntity(url, recipe, String.class);
         return response.getBody();
