@@ -10,26 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
-
+import globalFormStyles from '../../../GlobalFormStyles';
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+  }
 }));
 
 export default function LoginComponent(props) {
   const classes = useStyles();
+  const formClasses = globalFormStyles();
 
   const [userName, setUserName] = useState(0);
   const [redirectFire, setRedirectFire] = useState(0);
@@ -58,7 +50,7 @@ export default function LoginComponent(props) {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={formClasses.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -90,7 +82,7 @@ export default function LoginComponent(props) {
           fullWidth
           variant="contained"
           color="primary"
-          className={classes.submit}
+          className={formClasses.submit}
           onClick={(e) => {
             loginApi(userName);
             document.getElementById('email').value = '';
