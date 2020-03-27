@@ -107,6 +107,8 @@ export default (props) => {
             variant="contained"
             color="primary"
             className={formClasses.submit}
+            onClick = {() => 
+            {context.setCurrentUserName(userName.toString());}}
           >
             Sign Up
           </Button>

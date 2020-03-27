@@ -1,4 +1,4 @@
-import React, { useState, Fragment} from 'react';
+import React, { useState, Fragment, useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
 import globalFormStyles from '../../../GlobalFormStyles';
+import AppContext from '../../../context/app-context';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -17,9 +18,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn() {
+export default () => {
   const classes = useStyles();
   const formClasses = globalFormStyles();
+  const context = useContext(AppContext);
 
   const [recipeName, setRecipeName] = useState('');
   const [recipeIntro, setRecipeIntro] = useState('');
@@ -78,10 +80,43 @@ export default function SignIn() {
     setDirections(values);
   }
 
-  const saveRecipe = () => {
-      //Will eventually make post call to java backend
-      setRedirectFire(true);
-  }
+  const saveRecipe = async() => {
+      const data = {
+        inputRecipeName:recipeName,
+        inputRecipeID:recipeID,
+        inputRecipeIntro:recipeIntro,
+        inputCookTime:cookTime,
+        inputPrepTime:prepTime,
+        inputServings:servings,
+        inputIngredients:ingredients,
+        inputDirections:directions,
+        inputUserName:context.currentUserName
+      };
+
+      const settings = {
+        method:'POST',
+        headers:{
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }
+
+      try{
+        const fetchResponse = await fetch(`/recipes`, settings);
+        const data = await fetchResponse.json();
+        if(data.nodeStatus === 200){
+          setRedirectFire(true); 
+        }else if(data.nodeStatus === 400){
+          alert(`Unable to add recipe ${recipeName}`)
+        }else{
+          alert(`Unknown error...this site is broken:(`)
+        }
+        return;
+      }catch(err){
+        return err;
+      };
+  };
 
   if(redirectFire){
       return <Redirect push to="/recipe"/>
@@ -228,7 +263,7 @@ export default function SignIn() {
                 className={formClasses.submit}
                 variant="contained"
                 color="secondary"
-                href="./recipe"
+                href="./"
                 >
             Cancel
         </Button>

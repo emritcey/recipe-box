@@ -2,7 +2,7 @@ import React from 'react';
 import DisplayDBRecipeListComponent from './Components/DisplayDBRecipeListComponent';
 import CreateRecipe from './Components/CreateRecipe';
 import { useRouteMatch, Switch, Route } from "react-router-dom";
-import {makeStyles, } from "@material-ui/core/styles/index";
+import { makeStyles } from "@material-ui/core/styles/index";
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(() => ({
