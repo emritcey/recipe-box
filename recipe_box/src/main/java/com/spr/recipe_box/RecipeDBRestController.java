@@ -1,6 +1,5 @@
 package com.spr.recipe_box;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -11,10 +10,8 @@ import java.util.HashMap;
 @CrossOrigin
 @RequestMapping(value = "/recipes", produces = "application/json")
 
-public class RecipeDBController {
+public class RecipeDBRestController extends RestClass {
     public RestTemplate restTemplate = new RestTemplate();
-    @Value("${java.env}")
-    private String env;
 
     @GetMapping(value = "/{id}")
     public String findById(@PathVariable("id") String recipe_id) {

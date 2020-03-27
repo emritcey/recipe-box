@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "moveBuildToJavaApp": "rm -rf ../recipe_box/src/main/resources/public;mv ./build ../recipe_box/src/main/resources/public",
+    "moveBuildToJavaApp": "rm -rf ../recipe_box/src/main/resources/templates;rm -rf ../recipe_box/src/main/resources/static;mv ./build ../recipe_box/src/main/resources/static;mkdir ../recipe_box/src/main/resources/templates; mv ../recipe_box/src/main/resources/static/index.html ../recipe_box/src/main/resources/templates/;",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
