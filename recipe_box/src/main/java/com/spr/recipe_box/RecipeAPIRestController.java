@@ -8,7 +8,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/bigoven/recipes", produces = "application/json")
-public class RecipeAPIController {
+public class RecipeAPIRestController {
 
     @Autowired
     private RecipeService recipeService;
