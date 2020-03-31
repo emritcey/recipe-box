@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
+
+    //For real world applications, this would have to connect to a DB to check against users
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return new User("foo", "foo", new ArrayList<>());
