@@ -54,7 +54,7 @@ app.get("/recipes/:id", GetRecipeById, (req, res) => {
 app.post("/recipes", CreateRecipe, (req, res) => {
     if(res.locals.addedRecipe){
         return res.send({ nodeStatus: 200 });
-    }else if(res.locals.error) {
+    } else if(res.locals.error) {
         return res.send({
             nodeStatus:400,
             error: res.locals.error
@@ -63,7 +63,14 @@ app.post("/recipes", CreateRecipe, (req, res) => {
 });
 
 app.put("/recipes/:id", UpdateRecipe, (req, res) => {
-    res.send(res.locals.success);
+    if(res.locals.updatedRecipe){
+        return res.send({ nodeStatus: 200 });
+    } else if(res.locals.error) {
+        return res.send({
+            nodeStatus:400,
+            error: res.locals.error
+        });
+    }
 });
 
 app.delete("/recipes/:id", DeleteRecipe, (req,res) => {

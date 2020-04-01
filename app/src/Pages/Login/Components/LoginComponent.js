@@ -26,7 +26,7 @@ export default () => {
   const context = useContext(AppContext);
 
   const [userName, setUserName] = useState(0);
-  const [redirectFire, setRedirectFire] = useState(0);
+  const [redirectFire, setRedirectFire] = useState(false);
 
   const loginApi = async (userNameParam) => {
     try {
@@ -42,12 +42,12 @@ export default () => {
       return;
     } catch (err) {
       return err;
-    };
+    }
   };
 
   if (redirectFire) {
     return <Redirect push to="/dashboard" />
-  };
+  }
 
   return (
     <Container component="main" maxWidth="xs">
