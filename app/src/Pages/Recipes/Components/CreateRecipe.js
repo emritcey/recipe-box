@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
 import globalFormStyles from '../../../GlobalFormStyles';
-import AppContext from '../../../context/app-context';
+import AppContext from '../../../Context/app-context';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -32,7 +32,7 @@ export default () => {
   const [directions, setDirections] = useState(['']);
   const[recipeID, setRecipeID] = useState('');
   const[redirectFire, setRedirectFire] = useState(false);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Recipe name: ${recipeName}\nRecipe ID: ${recipeID}\nRecipe Intro: ${recipeIntro}\nCook Time: ${cookTime}\nPrep Time:${prepTime}\nServings: ${servings}\nIngredients: ${ingredients}\nDirections: ${directions}`);
@@ -106,7 +106,7 @@ export default () => {
         const fetchResponse = await fetch(`/recipes`, settings);
         const data = await fetchResponse.json();
         if(data.nodeStatus === 200){
-          setRedirectFire(true); 
+          setRedirectFire(true);
         }else if(data.nodeStatus === 400){
           alert(`Unable to add recipe ${recipeName}`)
         }else{
@@ -217,7 +217,7 @@ export default () => {
               </div>
             </Fragment>
           ))}
-         
+
          {directions.map((direction,index) => (
             <Fragment key={`${index}`}>
                <TextField
@@ -254,7 +254,7 @@ export default () => {
                 variant="contained"
                 color="primary"
                 className={formClasses.submit}
-                > 
+                >
                     Save Recipe
          </Button>
          <Button
