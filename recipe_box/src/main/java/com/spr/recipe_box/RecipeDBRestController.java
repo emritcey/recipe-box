@@ -1,8 +1,12 @@
 package com.spr.recipe_box;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 
 import java.util.HashMap;
 
@@ -34,11 +38,13 @@ public class RecipeDBRestController extends RestClass {
         return response.getBody();
     }
 
-    @PutMapping(value = "/{id}")
-    public boolean update(@PathVariable("id") String recipe_id, @RequestBody HashMap<String, String> updatedRecipe) {
+    @PutMapping(value = "/{recipe_id}")
+    public String update(@PathVariable("recipe_id") String recipe_id, @RequestBody HashMap<String, Object> updatedRecipe) {
         String url = env.equals("DEV") ? "http://127.0.0.1/recipes/" + recipe_id : "http://13.56.134.63/recipes/" + recipe_id;
-        restTemplate.put(url, updatedRecipe, String.class);
-        return true;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<HashMap<String, Object>> requestEntity = new HttpEntity<>(updatedRecipe, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+        return response.getBody();
     }
 
     @DeleteMapping(value = "/{id}")

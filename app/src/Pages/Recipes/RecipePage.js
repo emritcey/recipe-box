@@ -1,9 +1,15 @@
 import React from 'react';
+import { useRouteMatch, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import Container from '@material-ui/core/Container';
+import { makeStyles } from "@material-ui/core/styles/index";
+import Button from '@material-ui/core/Button';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
 import DisplayDBRecipeListComponent from './Components/DisplayDBRecipeListComponent';
 import CreateRecipe from './Components/CreateRecipe';
-import { useRouteMatch, Switch, Route } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles/index";
-import Container from '@material-ui/core/Container';
+import EditRecipeComponent from './Components/EditRecipeComponent';
 
 const useStyles = makeStyles(() => ({
     recipeTitle: {
@@ -20,9 +26,30 @@ function RecipePage() {
       <Route path={`${match.path}/create`}>
         <CreateRecipe />
       </Route>
+      <Route path={`${match.path}/edit/:recipe_id`}>
+          <Link to="/recipe/create">
+              <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  startIcon={<AddCircleOutlineIcon />}
+              >Create New Recipe
+              </Button>
+          </Link>
+          <EditRecipeComponent />
+      </Route>
       <Route path={match.path}>
           <Container maxWidth="sm">
               <h1 className={classes.h1}>Your Recipes</h1>
+              <Link to="/recipe/create">
+                  <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      startIcon={<AddCircleOutlineIcon />}
+                  >Create New Recipe
+                  </Button>
+              </Link>
               <DisplayDBRecipeListComponent />
           </Container>
       </Route>
