@@ -1,57 +1,62 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles/index";
+
 import DashboardCardComponent from './Components/DashboardCardComponent';
 
 // Use this Array to build out custom Properties for each card.
 const cardPropsArray = [{
-    name: "Emma",
+    name: "View All Recipes",
     image: "https://avatarfiles.alphacoders.com/213/213116.jpg",
-    backgroundColor: "#D8D8D8",
-    buttonColor: "#660000",
-    redirect: "./"
+    backgroundColor: "#3f51b5",
+    buttonColor: "white",
+    key: 'all-recipes',
+    redirect: "/recipe",
   }, {
-    name: "Michelle",
+    name: "Create New Recipe",
     image: "https://avatarfiles.alphacoders.com/213/213116.jpg",
-    backgroundColor: "#808080",
-    buttonColor: "#cc0000",
-    redirect: "./"
+    backgroundColor: "#3f51b5",
+    buttonColor: "white",
+    key: 'create',
+    redirect: "/recipe/create"
   }, {
-    name: "Mike",
-    image: "https://avatarfiles.alphacoders.com/213/213116.jpg",
-    backgroundColor: "#000000",
-    buttonColor: "#ff0000",
-    redirect: "./"
+    name: "Mikey's Tic-Tac-Toe Game",
+    image: "https://miro.medium.com/max/1056/1*kUI-7R4PhglX9mA44VPNpA.png",
+    backgroundColor: "#3f51b5",
+    buttonColor: "white",
+    key: 'mikeys-tic-tac-toe',
+    redirect: "/mikey-tic-tac-toe"
   }];
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        content: {
+            flexGrow: 1,
+            marginTop: '4%',
+            padding: theme.spacing(3),
+            transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+        },
+        dashboardContainer: {
+            display: 'flex',
+            'justify-content': 'space-around',
+            'flex-wrap': 'wrap',
+        },
+    }),
+);
+
 export default function DashboardPage() {
-  return (
+    const classes = useStyles();
+
+    return (
     <div>
-      <h1>Purple Squirrels</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Login Page</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to="/recipe">Recipe Page</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to="/recipe/create">Create Recipe</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to="/mikey-tic-tac-toe">Mikey's Tic Tac Toe</Link>
-          </li>
-        </ul>
-      </nav>
-      <div>
-        {cardPropsArray.map(mapElement => <DashboardCardComponent element={mapElement} />)}
-      </div>
+        <main className={classes.content}>
+            <div className={classes.dashboardContainer}>
+                {cardPropsArray.map(mapElement => <DashboardCardComponent key={mapElement.key} element={mapElement} />)}
+            </div>
+        </main>
     </div>
   );
 };
