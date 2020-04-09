@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import LoginComponent from './Components/LoginComponent';
 import SignUpComponent from './Components/SignUpComponent';
-import AppContext from '../../context/app-context';
+import AppContext from '../../Context/app-context';
 
 export default () => {
   const context = useContext(AppContext);

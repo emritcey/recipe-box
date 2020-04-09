@@ -1,0 +1,25 @@
+.Mikey-App {
+  text-align: center;
+}
+
+.mikey-home-box{
+  width: 26rem;
+  margin-top: 5rem;
+  display: inline-block;
+}
+
+.mikey-home-box div{
+  display: inline-block;
+}
+
+.mikey-box{
+  width: 8rem;
+  height: 8rem;
+  border: medium solid darkred;
+  background-color: white;
+  color: black;
+}
+
+.mikey-blank-box{
+  background-color: silver;
+}

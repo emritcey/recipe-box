@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
 import globalFormStyles from '../../../GlobalFormStyles';
-import AppContext from '../../../context/app-context';
+import AppContext from '../../../Context/app-context';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

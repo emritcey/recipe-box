@@ -1,15 +1,20 @@
 import React from 'react';
+
+import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+
+import GlobalState from './Context/GlobalState';
+import AppContext from './Context/app-context';
+
 import LoginPage from './Pages/Login/LoginPage';
 import DashboardPage from './Pages/Dashboard/DashboardPage';
 import RecipePage from './Pages/Recipes/RecipePage';
-import './App.css';
-import GlobalState from './context/GlobalState';
-import AppContext from './context/app-context';
+import MikeyTicTacToe from './Pages/MikeyTicTacToe/Pages/MikeyApp/MikeyApp';
 
 
 const App = () => {
@@ -28,6 +33,9 @@ const App = () => {
               <Route path="/dashboard">
                 <DashboardPage />
               </Route>
+              <Route path="/mikey-tic-tac-toe">
+                <MikeyTicTacToe />
+              </Route>
               <Route path="/">
                 <LoginPage />
               </Route>
@@ -36,7 +44,7 @@ const App = () => {
         </Router>
       )}
       </AppContext.Consumer>
-    </GlobalState> 
+    </GlobalState>
     );
 };
 

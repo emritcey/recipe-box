@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
-import AppContext from '../../../context/app-context';
+import AppContext from '../../../Context/app-context';
 import globalFormStyles from '../../../GlobalFormStyles';
 
 const useStyles = makeStyles(theme => ({
@@ -107,7 +107,7 @@ export default (props) => {
             variant="contained"
             color="primary"
             className={formClasses.submit}
-            onClick = {() => 
+            onClick = {() =>
             {context.setCurrentUserName(userName.toString());}}
           >
             Sign Up
