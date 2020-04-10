@@ -25,7 +25,8 @@ export default function LandingPageCard(props) {
   return (
     <div>
       <br />
-      <Card className={classes.root} style={{ backgroundColor: props.element.backgroundColor }}>
+      <Card
+          className={classes.root} style={{ backgroundColor: props.element.backgroundColor }}>
         <CardActionArea>
           <CardMedia
             component="img"

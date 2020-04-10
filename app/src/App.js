@@ -1,21 +1,18 @@
 import React from 'react';
-
-import './App.css';
-
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-
-import GlobalState from './Context/GlobalState';
-import AppContext from './Context/app-context';
-
 import LoginPage from './Pages/Login/LoginPage';
 import DashboardPage from './Pages/Dashboard/DashboardPage';
 import RecipePage from './Pages/Recipes/RecipePage';
-import MikeyTicTacToe from './Pages/MikeyTicTacToe/Pages/MikeyApp/MikeyApp';
+import './App.css';
+import GlobalState from './Context/GlobalState';
+import AppContext from './Context/app-context';
 
+import NavBarComponent from './Shared/NavBarComponent/NavBarComponent';
+import MikeyTicTacToe from './Pages/MikeyTicTacToe/Pages/MikeyApp/MikeyApp';
 
 const App = () => {
   return (
@@ -28,14 +25,17 @@ const App = () => {
             renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/recipe">
+                <NavBarComponent />
                 <RecipePage />
               </Route>
               <Route path="/dashboard">
+                <NavBarComponent />
                 <DashboardPage />
               </Route>
               <Route path="/mikey-tic-tac-toe">
+                <NavBarComponent />
                 <MikeyTicTacToe />
-              </Route>
+               </Route>
               <Route path="/">
                 <LoginPage />
               </Route>
