@@ -13,6 +13,7 @@ import AppContext from './Context/app-context';
 
 import NavBarComponent from './Shared/NavBarComponent/NavBarComponent';
 import MikeyTicTacToe from './Pages/MikeyTicTacToe/Pages/MikeyApp/MikeyApp';
+import EmmaTicTacToe from './Pages/EmmaTicTacToe/EmmaTicTacToe';
 
 const App = () => {
   return (
@@ -35,7 +36,11 @@ const App = () => {
               <Route path="/mikey-tic-tac-toe">
                 <NavBarComponent />
                 <MikeyTicTacToe />
-               </Route>
+              </Route>
+              <Route path="/emma-tic-tac-toe">
+                  <NavBarComponent />
+                  <EmmaTicTacToe />
+              </Route>
               <Route path="/">
                 <LoginPage />
               </Route>
