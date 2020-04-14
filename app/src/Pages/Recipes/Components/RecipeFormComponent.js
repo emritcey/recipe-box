@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useContext} from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import {Redirect, useRouteMatch} from "react-router-dom";
 
 import Button from '@material-ui/core/Button';
@@ -10,12 +10,19 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import globalFormStyles from '../../../GlobalFormStyles';
-import AppContext from '../../../Context/app-context';
+import { getSessionCookie } from '../../../Sessions';
+
 
 export default (props) => {
     const formClasses = globalFormStyles();
-    const context = useContext(AppContext);
     const match = useRouteMatch();
+    const [session, setSession] = useState(getSessionCookie());
+    useEffect(
+      () => {
+        setSession(getSessionCookie());
+      },
+      [session.userName]
+    );
 
     const[recipe_id, setRecipeID] = useState('');
     const [recipe_name, setRecipeName] = useState('');
@@ -95,7 +102,7 @@ export default (props) => {
             servings: servings,
             ingredients: ingredients,
             directions: directions,
-            userName: context.currentUserName,
+            userName: session.userName,
         };
         props.allDetails(data);
     };

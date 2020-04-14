@@ -20,6 +20,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import ListIcon from '@material-ui/icons/List';
 import CasinoIcon from '@material-ui/icons/Casino';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
@@ -81,6 +82,7 @@ export default () => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
     return (
         <div>
             <CssBaseline />
@@ -150,6 +152,13 @@ export default () => {
                         <ListItem button key="Emma's Tic-Tac-Toe">
                             <ListItemIcon><CasinoIcon /></ListItemIcon>
                             <ListItemText primary={'Emma\'s Tic-Tac-Toe'} />
+                        </ListItem>
+                    </Link>
+                    <Divider />
+                    <Link className={classes.navLink} to="/logout" onClick={handleDrawerClose}>
+                        <ListItem button key="Log Out">
+                            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                            <ListItemText primary={'Log Out'} />
                         </ListItem>
                     </Link>
                 </List>
