@@ -48,9 +48,12 @@ public class RecipeDBRestController extends RestClass {
     }
 
     @DeleteMapping(value = "/{id}")
-    public boolean delete(@PathVariable("id") String recipe_id) {
+    public String delete(@PathVariable("id") String recipe_id) {
         String url = env.equals("DEV") ? "http://127.0.0.1/recipes/" + recipe_id : "http://13.56.134.63/recipes/" + recipe_id;
-        restTemplate.delete(url);
-        return true;
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> requestEntity = new HttpEntity<>(recipe_id, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class);
+        return response.getBody();
     }
 }

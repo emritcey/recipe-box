@@ -16,14 +16,16 @@ module.exports = (req,res,next) => {
             "recipe_id": req.params.id
         }
     };
-    docClient.delete(params,function(err, data){
+    docClient.delete(params,function(err, data) {
         if (err) {
             log_file.write(new Date().toString() + ": recipes::deleteRecipe::error "+ JSON.stringify(err,null,2));
             log_stdout.write(new Date().toString() + ": recipes::deleteRecipe::error " + JSON.stringify(err,null,2));
             res.status(401);
+            res.locals.error = err;
         } else {
             log_file.write(new Date().toString() + ": recipes::deleteRecipe::success: " + req.params.id + "\r\n");
             log_stdout.write(new Date().toString() + ": recipes::deleteRecipe::success: " + req.params.id + "\r\n");
+            res.locals.deletedRecipe = true;
         }
         return next();
     });

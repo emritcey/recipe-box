@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CustomSnackBar from '../../../Shared/CustomSnackBar/CustomSnackBar';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -42,17 +44,59 @@ const ColorLinearProgress = withStyles({
     },
 })(LinearProgress);
 
-async function fetchRecipes() {
-    const response = await fetch('/recipes');
-    const body = await response.json();
-    return body;
-}
-
-function DisplayDBRecipeListComponent(){
+export default () => {
     const [recipes, setRecipes] = useState([]);
     const [load, setLoad] = useState(false);
+    const [openSnackBar, setOpenSnackBar] = useState(false);
+    const [snackBarMessage, setSnackBarMessage] = useState(false);
+    const [snackBarVariant, setSnackBarVariant] = useState(false);
 
     const classes = useStyles();
+
+    const fetchRecipes = async () => {
+        const response = await fetch('/recipes');
+        const body = await response.json();
+        return body;
+    };
+
+    const deleteRecipe = async (recipe) => {
+        const settings = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+
+        try {
+            setLoad(false);
+            const fetchResponse = await fetch(`/recipes/${recipe.recipe_id}`, settings);
+            const data = await fetchResponse.json();
+            if (data.nodeStatus === 200) {
+                buildSuccessfulDeleteSnackBar(recipe.recipe_name);
+            } else {
+                buildFailedDeleteSnackBar(recipe.recipe_name);
+            }
+            setLoad(true);
+        } catch(err) {
+            return err;
+        }
+    };
+
+    const buildSuccessfulDeleteSnackBar = (name) => {
+        setSnackBarMessage(`Successfully Deleted: ${name}`);
+        setOpenSnackBar(true);
+        setSnackBarVariant('success');
+    };
+
+    const buildFailedDeleteSnackBar = (name) => {
+        setSnackBarMessage(`Failed to Delete: ${name}`);
+        setOpenSnackBar(true);
+        setSnackBarVariant('failed');
+    };
+
+    const closeSnackBar = () => {
+        setOpenSnackBar(false);
+    };
 
     useEffect(() => {
         fetchRecipes()
@@ -63,36 +107,48 @@ function DisplayDBRecipeListComponent(){
         .catch(() => {
             setLoad(true);
         });
-    }, []);
+    }, [load]);
 
     if (load) {
         return (
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className={classes.head}>Recipe Name</TableCell>
-                            <TableCell className={classes.head}>Recipe Intro</TableCell>
-                            <TableCell className={classes.head}></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {recipes.map((recipe, index) =>
-                            <TableRow hover key={index}>
-                                <TableCell component="th" scope="row">{recipe.recipe_name}</TableCell>
-                                <TableCell component="th" scope="row">{recipe.recipe_intro}</TableCell>
-                                <TableCell component="th" scope="row">
-                                    <Link to={"/recipe/edit/" + recipe.recipe_id}>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
-                                </TableCell>
+            <div>
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className={classes.head}>Recipe Name</TableCell>
+                                <TableCell className={classes.head}>Recipe Intro</TableCell>
+                                <TableCell className={classes.head}></TableCell>
+                                <TableCell className={classes.head}></TableCell>
                             </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {recipes.map((recipe, index) =>
+                                <TableRow hover key={index}>
+                                    <TableCell component="th" scope="row">{recipe.recipe_name}</TableCell>
+                                    <TableCell component="th" scope="row">{recipe.recipe_intro}</TableCell>
+                                    <TableCell component="th" scope="row">
+                                        <Link to={"/recipe/edit/" + recipe.recipe_id}>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell component="th" scope="row">
+                                        <IconButton onClick={() => {deleteRecipe(recipe)}}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <CustomSnackBar message={snackBarMessage}
+                                 variant={snackBarVariant}
+                                 closeSnackBar={closeSnackBar}
+                                 open={openSnackBar}/>
+            </div>
         );
     } else {
         return(
@@ -102,5 +158,3 @@ function DisplayDBRecipeListComponent(){
         );
     }
 }
-
-export default DisplayDBRecipeListComponent;

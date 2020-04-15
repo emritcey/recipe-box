@@ -52,7 +52,7 @@ app.get("/recipes/:id", GetRecipeById, (req, res) => {
 });
 
 app.post("/recipes", CreateRecipe, (req, res) => {
-    if(res.locals.addedRecipe){
+    if (res.locals.addedRecipe){
         return res.send({ nodeStatus: 200 });
     } else if(res.locals.error) {
         return res.send({
@@ -73,9 +73,16 @@ app.put("/recipes/:id", UpdateRecipe, (req, res) => {
     }
 });
 
-app.delete("/recipes/:id", DeleteRecipe, (req,res) => {
-    res.send(true);
-})
+app.delete("/recipes/:id", DeleteRecipe, (req, res) => {
+    if  (res.locals.deletedRecipe){
+        return res.send({ nodeStatus: 200 });
+    } else if(res.locals.error) {
+        return res.send({
+            nodeStatus: 400,
+            error: res.locals.error
+        });
+    }
+});
 
 app.use("*", (req, res) => {
     res.status(404).send("Node.js -> No Routes Matched");
