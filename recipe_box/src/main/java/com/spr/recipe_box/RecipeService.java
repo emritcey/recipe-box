@@ -2,6 +2,8 @@ package com.spr.recipe_box;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spr.recipe_box.Constants.Constants;
+import com.spr.recipe_box.Constants.Keys;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +19,7 @@ public class RecipeService {
     private static List<Recipe> recipeList = new ArrayList<>();
 
     public List<Recipe> findById(String recipe_id){
-            String url  = "https://api.bigoven.com/recipe/"+recipe_id+"?api_key=glFUKikehWjLW900etpS564VgIzOWSW5";
+            String url = Constants.BIG_OVEN + Constants.RECIPES + recipe_id + Constants.API_KEY_QUERY + Keys.BIG_OVEN_KEY;
 
             RestTemplate restTemplate = new RestTemplate();
 

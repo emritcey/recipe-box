@@ -1,12 +1,12 @@
 package com.spr.recipe_box;
 
+import com.spr.recipe_box.Constants.Constants;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 
 import java.util.HashMap;
 
@@ -19,28 +19,28 @@ public class RecipeDBRestController extends RestClass {
 
     @GetMapping(value = "/{id}")
     public String findById(@PathVariable("id") String recipe_id) {
-        String url = env.equals("DEV") ? "http://127.0.0.1/recipes/" + recipe_id : "http://13.56.134.63/recipes/" + recipe_id;
+        String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES + recipe_id : Constants.NODE_PROD_ENV + Constants.RECIPES + recipe_id;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return response.getBody();
     }
 
     @GetMapping
     public String findAll() {
-        String url = env.equals("DEV") ? "http://127.0.0.1/recipes" : "http://13.56.134.63/recipes";
+        String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES : Constants.NODE_PROD_ENV + Constants.RECIPES;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return response.getBody();
     }
 
     @PostMapping
     public String create(@RequestBody HashMap<String, Object> recipe) {
-        String url = env.equals("DEV") ? "http://127.0.0.1/recipes" : "http://13.56.134.63/recipes";
+        String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES : Constants.NODE_PROD_ENV + Constants.RECIPES;
         ResponseEntity<String> response = restTemplate.postForEntity(url, recipe, String.class);
         return response.getBody();
     }
 
     @PutMapping(value = "/{recipe_id}")
     public String update(@PathVariable("recipe_id") String recipe_id, @RequestBody HashMap<String, Object> updatedRecipe) {
-        String url = env.equals("DEV") ? "http://127.0.0.1/recipes/" + recipe_id : "http://13.56.134.63/recipes/" + recipe_id;
+        String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES + recipe_id : Constants.NODE_PROD_ENV + Constants.RECIPES + recipe_id;
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<HashMap<String, Object>> requestEntity = new HttpEntity<>(updatedRecipe, headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -49,7 +49,7 @@ public class RecipeDBRestController extends RestClass {
 
     @DeleteMapping(value = "/{id}")
     public String delete(@PathVariable("id") String recipe_id) {
-        String url = env.equals("DEV") ? "http://127.0.0.1/recipes/" + recipe_id : "http://13.56.134.63/recipes/" + recipe_id;
+        String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES + recipe_id : Constants.NODE_PROD_ENV + Constants.RECIPES + recipe_id;
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(recipe_id, headers);

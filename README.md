@@ -1,6 +1,6 @@
 **Recipe Box Project**
 
-Lil Mikey Mulderink, Emma Ritcey, Michelle Purple Squirrel Salgado, Lynn Comstock
+Lil Mikey Mulderink, Emma Ritcey, Michelle Purple Squirrel Salgado, Lynn Comstock, Melissa McLean
 
 This is a practice application to learn more about React, Node, Java, and AWS.
 
