@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles/index";
+import {createStyles, makeStyles } from "@material-ui/core/styles/index";
 
 import DashboardCardComponent from './Components/DashboardCardComponent';
+import SuggestedRecipeComponent from './Components/SuggestedRecipeComponent';
 
 // Use this Array to build out custom Properties for each card.
 const cardPropsArray = [{
@@ -28,7 +29,7 @@ const cardPropsArray = [{
     redirect: "/mikey-tic-tac-toe"
   }];
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme) =>
     createStyles({
         content: {
             flexGrow: 1,
@@ -57,6 +58,8 @@ export default function DashboardPage() {
                 {cardPropsArray.map(mapElement => <DashboardCardComponent key={mapElement.key} element={mapElement} />)}
             </div>
         </main>
+
+        <SuggestedRecipeComponent />
     </div>
   );
 };

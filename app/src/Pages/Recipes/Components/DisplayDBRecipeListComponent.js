@@ -72,6 +72,7 @@ export default () => {
             const fetchResponse = await fetch(`/recipes/${recipe.recipe_id}`, settings);
             const data = await fetchResponse.json();
             if (data.nodeStatus === 200) {
+
                 buildSuccessfulDeleteSnackBar(recipe.recipe_name);
             } else {
                 buildFailedDeleteSnackBar(recipe.recipe_name);
@@ -117,7 +118,7 @@ export default () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell className={classes.head}>Recipe Name</TableCell>
-                                <TableCell className={classes.head}>Recipe Intro</TableCell>
+                                <TableCell className={classes.head}>Description</TableCell>
                                 <TableCell className={classes.head}></TableCell>
                                 <TableCell className={classes.head}></TableCell>
                             </TableRow>
@@ -126,7 +127,7 @@ export default () => {
                             {recipes.map((recipe, index) =>
                                 <TableRow hover key={index}>
                                     <TableCell component="th" scope="row">{recipe.recipe_name}</TableCell>
-                                    <TableCell component="th" scope="row">{recipe.recipe_intro}</TableCell>
+                                    <TableCell component="th" scope="row">{recipe.description}</TableCell>
                                     <TableCell component="th" scope="row">
                                         <Link to={"/recipe/edit/" + recipe.recipe_id}>
                                             <IconButton>

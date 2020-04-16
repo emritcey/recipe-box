@@ -12,6 +12,10 @@ import { Redirect } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    '&:hover': {
+      boxShadow: '0 0 15px rgba(0,0,0,.3)',
+      transition: 'opacity .15s ease-out',
+    },
   },
 });
 

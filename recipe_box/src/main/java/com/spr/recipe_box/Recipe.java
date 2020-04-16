@@ -6,57 +6,73 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Recipe {
-    private String title;
+    private String recipe_name;
     private String recipe_id;
     private String description;
-    List <Ingredient> ingredientList = new ArrayList<>();
-    private String instructions;
+    private String cook_time;
+    private String prep_time;
+    private String servings;
+    List <String> ingredients = new ArrayList<>();
+    private String directions;
 
-    public Recipe(String title, String recipe_id, String description, String instructions) {
-        this.title = title;
+    public Recipe(String recipe_name,
+                  String recipe_id,
+                  String description,
+                  String cook_time,
+                  String prep_time,
+                  String servings,
+                  String directions) {
+        this.recipe_name = recipe_name;
         this.recipe_id = recipe_id;
+        this.cook_time = cook_time;
+        this.prep_time = prep_time;
+        this.servings = servings;
         this.description = description;
-        this.instructions = instructions;
+        this.directions = directions;
     }
 
-    public String getRecipeId() {
+    public String getRecipe_id() {
         return recipe_id;
     }
 
-    public void setRecipeId(String recipe_id) {
-        this.recipe_id = recipe_id;
+    public String getRecipe_name() {
+        return recipe_name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCook_time() {
+        return cook_time;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getPrep_time() {
+        return prep_time;
+    }
+
+    public String getServings() {
+        return servings;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public List<Ingredient> getIngredientList() {
-        return ingredientList;
+    public List<String> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredientList(List<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
+    public void setIngredientList(List<String> ingredientList) {
+        this.ingredients = ingredientList;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getDirections() {
+        return directions;
     }
 
     @Override
     public String toString(){
-        String recipeInfo = "Recipe: " + title + "\n" +
+        String recipeInfo = "Recipe: " + recipe_name + "\n" +
                 "Description: " + description + "\n" +
-                "Instructions: " + instructions;
-        String ingredientThings = ingredientList.toString();
-        return recipeInfo + "\n" + ingredientThings;
+                "Directions: " + directions;
+        String ingredientList = ingredients.toString();
+        return recipeInfo + "\n" + ingredientList;
     }
 }

@@ -47,6 +47,7 @@ public class RecipeDBRestController extends RestClass {
         return response.getBody();
     }
 
+
     @DeleteMapping(value = "/{id}")
     public String delete(@PathVariable("id") String recipe_id) {
         String url = env.equals(Constants.DEV_BOOL) ? Constants.NODE_DEV_ENV + Constants.RECIPES + recipe_id : Constants.NODE_PROD_ENV + Constants.RECIPES + recipe_id;

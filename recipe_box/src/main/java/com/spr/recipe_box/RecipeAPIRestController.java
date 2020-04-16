@@ -17,4 +17,9 @@ public class RecipeAPIRestController {
     public List<Recipe> getRecipeById(@PathVariable String recipe_id) {
         return recipeService.findById(recipe_id);
     }
+
+    @GetMapping("/random")
+    public List<Recipe> getSuggestedRecipes() {
+        return recipeService.get25Random();
+    }
 }

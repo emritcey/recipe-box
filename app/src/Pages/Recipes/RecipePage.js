@@ -18,14 +18,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 function RecipePage() {
-  let match = useRouteMatch();
+  const match = useRouteMatch();
   const classes = useStyles();
 
   return (
     <Switch>
-      <Route path={`${match.path}/create`}>
-        <CreateRecipe />
-      </Route>
+      <Route path={[`${match.path}/create/:recipe_id`, `${match.path}/create`]}  component={CreateRecipe} />
       <Route path={`${match.path}/edit/:recipe_id`}>
           <Link to="/recipe/create">
               <Button
