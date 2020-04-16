@@ -146,6 +146,12 @@ export default () => {
                             <ListItemText primary={'Mikey\'s Tic-Tac-Toe'} />
                         </ListItem>
                     </Link>
+                    <Link className={classes.navLink} to="/emma-tic-tac-toe" onClick={handleDrawerClose}>
+                        <ListItem button key="Emma's Tic-Tac-Toe">
+                            <ListItemIcon><CasinoIcon /></ListItemIcon>
+                            <ListItemText primary={'Emma\'s Tic-Tac-Toe'} />
+                        </ListItem>
+                    </Link>
                 </List>
             </Drawer>
         </div>
