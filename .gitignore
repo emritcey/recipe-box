@@ -27,6 +27,9 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+/recipe_box/src/main/java/com/spr/recipe_box/Constants/Keys.java
+/recipe_box/src/main/resources/static
+/recipe_box/src/main/resources/templates
 
 ### VS Code ###
 .vscode/
