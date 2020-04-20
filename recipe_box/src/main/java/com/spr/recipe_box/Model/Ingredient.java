@@ -1,4 +1,4 @@
-package com.spr.recipe_box;
+package com.spr.recipe_box.Model;
 
 public class Ingredient {
     private String name;

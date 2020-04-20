@@ -1,4 +1,4 @@
-package com.spr.recipe_box;
+package com.spr.recipe_box.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
