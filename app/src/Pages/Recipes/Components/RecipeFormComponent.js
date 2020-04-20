@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, useContext} from 'react';
-import { Redirect } from "react-router-dom";
+import {Redirect, useRouteMatch} from "react-router-dom";
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,39 +15,39 @@ import AppContext from '../../../Context/app-context';
 export default (props) => {
     const formClasses = globalFormStyles();
     const context = useContext(AppContext);
+    const match = useRouteMatch();
 
     const[recipe_id, setRecipeID] = useState('');
-    const [recName, setRecName] = useState('');
-    const [recipeIntro, setRecipeIntro] = useState('');
-    const [cookTime, setCookTime] = useState('');
-    const [prepTime, setPrepTime] = useState('');
+    const [recipe_name, setRecipeName] = useState('');
+    const [description, setDescription] = useState('');
+    const [cook_time, setCookTime] = useState('');
+    const [prep_time, setPrepTime] = useState('');
     const [servings, setServings] = useState('');
     const [ingredients, setIngredients] = useState(['']);
-    const [directions, setDirections] = useState(['']);
+    const [directions, setDirections] = useState('');
+    const [disabled, setDisabled] = useState(false);
     const [cancellationFire, setCancellationFire] = useState(false);
 
     useEffect(() => {
-        if (props.recipeDetails && props.recipeDetails.recipe_id) {
-            setRecipeID(props.recipeDetails.recipe_id);
-            setRecName(props.recipeDetails.recipe_name);
-            setRecipeIntro(props.recipeDetails.recipe_intro);
+        if (props.recipeDetails && props.recipeDetails.recipe_name) {
+            handleRecipeNameConversion(props.recipeDetails.recipe_name);
+            setRecipeName(props.recipeDetails.recipe_name);
+            setDescription(props.recipeDetails.description || '');
             setCookTime(props.recipeDetails.cook_time);
-            setPrepTime(props.recipeDetails.prep_time);
+            setPrepTime(props.recipeDetails.prep_time || '');
             setServings(props.recipeDetails.servings);
             setIngredients(props.recipeDetails.ingredients || ['']);
-            setDirections(props.recipeDetails.directions || ['']);
-            setRecipeID(props.recipeDetails.recipe_id);
+            setDirections(props.recipeDetails.directions);
+            setDisabled(match.path === "/recipe/edit");
         }
-    }, [props]);
+    }, [props, match]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const confirmationString = `Recipe name: ${recName}\nRecipe ID: ${recipe_id}\nRecipe Intro: ${recipeIntro}\nCook Time: ${cookTime}\nPrep Time:${prepTime}\nServings: ${servings}\nIngredients: ${ingredients}\nDirections: ${directions}`;
+        const confirmationString = `Recipe name: ${recipe_name}\nRecipe ID: ${recipe_id}\nRecipe Description: ${description}\nCook Time: ${cook_time}\nPrep Time:${prep_time}\nServings: ${servings}\nIngredients: ${ingredients}\nDirections: ${directions}`;
         if (window.confirm(confirmationString)) {
             saveRecipe();
-        } else {
-            console.log('hit ancel');
         }
     };
 
@@ -56,9 +56,13 @@ export default (props) => {
         setCancellationFire(true);
     };
 
-    const handleRecipeNameConversion = (e) => {
-        setRecName(e.target.value);
-        setRecipeID(e.target.value.toLowerCase().split(' ').join('_'));
+    const handleRecipeName = (e) => {
+        setRecipeName(e.target.value);
+        handleRecipeNameConversion(e.target.value);
+    };
+
+    const handleRecipeNameConversion = (recipe_name) => {
+        setRecipeID(recipe_name.toLowerCase().split(' ').join('_'));
     };
 
     const handleAddIngredients = () => {
@@ -75,39 +79,19 @@ export default (props) => {
         }
     };
 
-    const handleAddDirections = () => {
-        const values = [...directions];
-        values.push('');
-        setDirections(values);
-    };
-
-    const handleRemoveDirections = () => {
-        const values = [...directions];
-        if (values.length > 1) {
-            values.pop();
-            setDirections(values);
-        }
-    };
-
     const handleIngredientChange = (index,event) => {
         const values = [...ingredients];
         values[index] = event.target.value;
         setIngredients(values);
     };
 
-    const handleDirectionChange = (index, event) => {
-        const values = [...directions];
-        values[index] = event.target.value;
-        setDirections(values);
-    };
-
     const saveRecipe = async() => {
         const data = {
             recipe_id: recipe_id,
-            recipeName: recName,
-            recipeIntro: recipeIntro,
-            cookTime: cookTime,
-            prepTime: prepTime,
+            recipe_name: recipe_name,
+            description: description,
+            cook_time: cook_time,
+            prep_time: prep_time,
             servings: servings,
             ingredients: ingredients,
             directions: directions,
@@ -121,52 +105,60 @@ export default (props) => {
     }
 
     return (
-        <form className={formClasses.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                disabled={!!props.recipeDetails}
-                fullWidth
-                value={recName}
-                label="Recipe Name"
-                onChange={e => handleRecipeNameConversion(e)}/>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                multiline
-                required
-                rows="4"
-                fullWidth
-                value={recipeIntro}
-                label="Recipe Description"
-                onChange={e => setRecipeIntro(e.target.value)}/>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                value={cookTime}
-                label="Cook Time"
-                onChange={e => setCookTime(e.target.value)}/>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                value={prepTime}
-                label="Prep Time"
-                onChange={e => setPrepTime(e.target.value)}/>
-            <TextField
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                value={servings}
-                label="Servings"
-                onChange={e => setServings(e.target.value)}/>
+        <form className={formClasses.form} onSubmit={handleSubmit}>
             <Card className={formClasses.root}>
                 <CardContent>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        disabled={disabled}
+                        fullWidth
+                        value={recipe_name}
+                        label="Recipe Name"
+                        onChange={e => handleRecipeName(e)}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        rows="4"
+                        fullWidth
+                        value={description}
+                        label="Recipe Description"
+                        onChange={e => setDescription(e.target.value)}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        value={cook_time}
+                        label="Cook Time"
+                        onChange={e => setCookTime(e.target.value)}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        value={prep_time}
+                        label="Prep Time"
+                        onChange={e => setPrepTime(e.target.value)}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                        value={servings}
+                        label="Servings"
+                        onChange={e => setServings(e.target.value)}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        required
+                        rows="10"
+                        fullWidth
+                        value={directions}
+                        label="Directions"
+                        onChange={e => setDirections(e.target.value)}/>
                     <h3>Ingredients</h3>
                     {ingredients.map((ingredient,index) => (
                         <Fragment key={`${index}`}>
@@ -190,35 +182,6 @@ export default (props) => {
                     </div>
                 </CardContent>
             </Card>
-
-
-            <Card className={formClasses.root}>
-                <CardContent>
-                    <h3>Directions</h3>
-                    {directions.map((direction,index) => (
-                        <Fragment key={`${index}`}>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                fullWidth
-                                required
-                                value={direction}
-                                label="Direction"
-                                onChange={event => handleDirectionChange(index, event)}
-                            />
-                        </Fragment>
-                    ))}
-                    <div className="form-group col-sm-2">
-                        <IconButton onClick={() => handleRemoveDirections()}>
-                            <RemoveCircleIcon />
-                        </IconButton>
-                        <IconButton onClick={() => handleAddDirections()}>
-                            <AddCircleIcon />
-                        </IconButton>
-                    </div>
-                </CardContent>
-            </Card>
-
             <Button
                 type="submit"
                 fullWidth

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
     const classes = useStyles();
     const formClasses = globalFormStyles();
-    let match = useRouteMatch();
+    const match = useRouteMatch();
 
     const [recipeDetails, setRecipeDetails] = useState({});
     const [redirectFire, setRedirectFire] = useState(false);
@@ -41,36 +41,36 @@ export default () => {
             if (data.nodeStatus === 200) {
                 setRedirectFire(true);
             } else if (data.nodeStatus === 400) {
-                alert(`Unable to update recipe ${details.recipeName}`)
+                alert(`Unable to update recipe ${details.recipe_name}`)
             } else {
                 alert(`Unknown error...this site is broken :(`)
             }
             return;
         } catch(err) {
             return err;
+
         }
     };
 
     useEffect(() => {
-        const getRecipeDetails = async() => {
-            try {
-                const response = await fetch(`/recipes/${match.params.recipe_id}`);
-                const data = await response.json();
-                setRecipeDetails(data.Item);
-            } catch(err) {
-                alert(`Unable to find recipe. Error: ${err}`)
-            }
+        const getRecipeDetails = async () => {
+            const response = await fetch(`/recipes/${match.params.recipe_id}`);
+            const body = await response.json();
+            return body;
         };
 
-        getRecipeDetails();
-    }, [match]);
+        getRecipeDetails().then(body => {
+            setRecipeDetails(body.Item);
+        });
+    }, [match.params.recipe_id]);
 
     if(redirectFire){
         return <Redirect push to="/recipe"/>
+
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
             <CssBaseline />
             <div className={formClasses.paper}>
                 <Avatar className={classes.avatar}>
@@ -79,7 +79,7 @@ export default () => {
                 <Typography component="h1" variant="h5">
                     Edit Recipe
                 </Typography>
-                <RecipeFormComponent allDetails={handleDetails} recipeDetails={recipeDetails}/>
+                <RecipeFormComponent allDetails={handleDetails} recipeDetails={recipeDetails} />
             </div>
         </Container>
     );
