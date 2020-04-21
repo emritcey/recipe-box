@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import { Redirect } from "react-router-dom";
 import globalFormStyles from '../../../GlobalFormStyles';
 import AppContext from '../../../Context/app-context';
+import { setSessionCookie } from '../../../Sessions';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -33,6 +34,7 @@ export default () => {
       const fetchResponse = await fetch(`/user?user_name=${userNameParam}`);
       const data = await fetchResponse.json();
       if (data.nodeStatus === 200) {
+        setSessionCookie({ userName });
         setRedirectFire(true);
       } else if (data.nodeStatus === 401) {
         window.alert("You need to create an account Brah. Create an account or go to another site, Tanks :)");

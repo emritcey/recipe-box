@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {createStyles, makeStyles } from "@material-ui/core/styles/index";
 
 import DashboardCardComponent from './Components/DashboardCardComponent';
 import SuggestedRecipeComponent from './Components/SuggestedRecipeComponent';
+import { getSessionCookie } from '../../Sessions';
 
 // Use this Array to build out custom Properties for each card.
 const cardPropsArray = [{
@@ -50,10 +51,17 @@ const useStyles = makeStyles((theme) =>
 
 export default function DashboardPage() {
     const classes = useStyles();
-
+    const [session, setSession] = useState(getSessionCookie());
+    useEffect(
+      () => {
+        setSession(getSessionCookie());
+      },
+      [session.userName]
+    );
     return (
     <div>
         <main className={classes.content}>
+            <h1>Welcome, {session.userName}</h1>
             <div className={classes.dashboardContainer}>
                 {cardPropsArray.map(mapElement => <DashboardCardComponent key={mapElement.key} element={mapElement} />)}
             </div>
