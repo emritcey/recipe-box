@@ -1,7 +1,7 @@
 package com.spr.recipe_box.Controller;
 
 import com.spr.recipe_box.Model.Recipe;
-import com.spr.recipe_box.Service.RecipeService;
+import com.spr.recipe_box.Service.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
