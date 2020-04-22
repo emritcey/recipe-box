@@ -4,6 +4,7 @@ public class Constants {
     public static final String DEV_BOOL = "DEV";
     public static final String RECIPES = "recipes/";
     public static final String RECIPE = "recipe/";
+    public static final String LOGIN = "login";
     public static final String USER = "user/";
     public static final String API_KEY_QUERY = "?api_key=";
     public static final String USER_NAME_QUERY = "user?user_name=";
