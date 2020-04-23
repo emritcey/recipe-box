@@ -1,4 +1,4 @@
-package com.spr.recipe_box;
+package com.spr.recipe_box.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

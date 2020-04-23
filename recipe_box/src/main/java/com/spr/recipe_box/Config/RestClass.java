@@ -1,4 +1,4 @@
-package com.spr.recipe_box;
+package com.spr.recipe_box.Config;
 
 import org.springframework.beans.factory.annotation.Value;
 
